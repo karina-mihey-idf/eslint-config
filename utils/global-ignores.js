@@ -1,3 +1,4 @@
+
 export const globalIgnores = [
   'dist',
   'build',
@@ -11,3 +12,6 @@ export const globalIgnores = [
   '.output',
   '.vercel',
 ];
+
+// Export as default for backward compatibility
+export default globalIgnores;

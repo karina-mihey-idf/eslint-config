@@ -21,15 +21,21 @@ import { importSortGroups } from './utils/import-sort-groups.js';
 
 export const createConfig = (options = {}) => {
   const {
-    project = ['tsconfig.json'],
+    project = ['./tsconfig.json'],
     rootDir = 'src',
     additionalIgnores = [],
     customRules = {},
     tsconfigRootDir = process.cwd(),
   } = options;
 
+  // Combine global ignores with additional ones
+  const allIgnores = [...globalIgnores, ...additionalIgnores];
+
   return tseslint.config([
-    globalIgnores([...globalIgnores, ...additionalIgnores]),
+    // Global ignores should be in a separate config object
+    {
+      ignores: allIgnores,
+    },
     {
       files: ['**/*.{js,jsx,ts,tsx}'],
 
@@ -54,14 +60,14 @@ export const createConfig = (options = {}) => {
       extends: [
         // general
         js.configs.recommended,
-        tseslint.configs.recommended,
+        ...tseslint.configs.recommended,
         // imports
         importPlugin.flatConfigs.recommended,
         importPlugin.flatConfigs.typescript,
         // react
         react.configs.flat.recommended,
         react.configs.flat['jsx-runtime'],
-        reactHooks.configs['recommended-latest'],
+        reactHooks.configs.recommended,
         // a11y
         jsxA11y.flatConfigs.recommended,
         // vite
@@ -108,5 +114,5 @@ export default createConfig();
 
 // Export TSConfig utilities
 export const getTSConfigPath = (configType = 'react') => {
-  return `@yourcompany/eslint-config/tsconfig/${configType}.json`;
+  return `eslint-config/tsconfig/${configType}.json`;
 };
