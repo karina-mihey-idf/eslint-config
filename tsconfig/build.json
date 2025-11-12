@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "extends": "./strict.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": false,
+    "removeComments": true,
+    "importHelpers": true,
+    "downlevelIteration": true,
+
+
+    "outDir": "./dist",
+    "rootDir": "./src",
+
+    "incremental": true,
+    "composite": false,
+    "tsBuildInfoFile": "./dist/.tsbuildinfo",
+
+    "noEmitOnError": true,
+    "preserveConstEnums": false,
+
+
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "exclude": [
+    "node_modules",
+    "**/*.test.*",
+    "**/*.spec.*",
+    "**/*.stories.*",
+    "coverage",
+    "dist"
+  ]
+}

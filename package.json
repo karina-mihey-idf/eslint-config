@@ -1,0 +1,45 @@
+{
+  "name": "eslint-config",
+  "version": "1.0.0",
+  "description": "Shared ESLint and TypeScript configuration based on crm-pro standards",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./legacy": "./legacy.js",
+    "./configs/*": "./configs/*.js",
+    "./rules/*": "./rules/*.js",
+    "./tsconfig/*": "./tsconfig/*.json"
+  },
+  "files": [
+    "index.js",
+    "legacy.js",
+    "configs/",
+    "rules/",
+    "tsconfig/",
+    "utils/"
+  ],
+  "keywords": [
+    "eslint",
+    "eslintconfig",
+    "typescript",
+    "tsconfig",
+    "react",
+    "stylistic"
+  ],
+  "peerDependencies": {
+    "eslint": "^9.33.0",
+    "typescript": "^5.8.0"
+  },
+  "dependencies": {
+    "@eslint/js": "^9.32.0",
+    "@stylistic/eslint-plugin": "^5.2.3",
+    "typescript-eslint": "^8.39.0",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-no-relative-import-paths": "^1.6.1",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "eslint-plugin-simple-import-sort": "^12.1.1"
+  }
+}

@@ -1,0 +1,31 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# ide
+.idea/
+.env
+.env.development
+
+# dependencies
+/node_modules
+
+# production
+/build
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+node_modules
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
