@@ -10,14 +10,14 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import simpleImportSort from 'eslint-plugin-simple-import-sort';
 // rules
-import { baseRules } from 'rules/base-rules';
-import { typescriptRules } from 'rules/typescript-rules';
-import { reactRules } from 'rules/react-rules';
-import { importRules } from 'rules/import-rules';
-import { stylisticRules } from 'rules/stylistic-rules';
+import { baseRules } from './rules/base-rules';
+import { typescriptRules } from './rules/typescript-rules';
+import { reactRules } from './rules/react-rules';
+import { importRules } from './rules/import-rules';
+import { stylisticRules } from './rules/stylistic-rules';
 // utils
-import { globalIgnores } from 'utils/global-ignores';
-import { importSortGroups } from 'utils/import-sort-groups';
+import { globalIgnores } from './utils/global-ignores';
+import { importSortGroups } from './utils/import-sort-groups';
 
 export const createConfig = (options = {}) => {
   const {
