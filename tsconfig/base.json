@@ -1,69 +1,28 @@
+
 {
-  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
-    // Language and Environment
     "target": "ES2020",
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "strict": true,
-    "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "verbatimModuleSyntax": false,
-
-    // Module Resolution
     "module": "ESNext",
-    "moduleResolution": "bundler",
-    "isolatedModules": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "allowImportingTsExtensions": false,
     "resolveJsonModule": true,
+    "isolatedModules": true,
     "noEmit": true,
-
-    // Type Checking - Strict Mode
-    "exactOptionalPropertyTypes": true,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "noImplicitReturns": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    "noUncheckedIndexedAccess": true,
+    "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "useUnknownInCatchVariables": true,
-
-    // Emit
-    "declaration": false,
-    "declarationMap": false,
-    "sourceMap": true,
-    "removeComments": true,
-    "importHelpers": true,
-    "downlevelIteration": true,
-
-    // Interop Constraints
-    "allowImportingTsExtensions": false,
-    "allowArbitraryExtensions": false,
-
-    // JSX
-    "jsx": "react-jsx",
-
-    // Path Mapping (can be overridden in extending configs)
-    "baseUrl": "./",
-    "paths": {
-      "@/*": ["src/*"],
-      "~/*": ["src/*"]
-    }
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "moduleResolution": "bundler",
+    "forceConsistentCasingInFileNames": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true
   },
-  "include": [
-    "src/**/*",
-    "src/**/*.json"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "build",
-    "coverage",
-    "**/*.test.*",
-    "**/*.spec.*"
-  ]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
+  "exclude": ["node_modules", "dist", "build"]
 }
