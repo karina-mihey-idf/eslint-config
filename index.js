@@ -19,6 +19,20 @@ import { stylisticRules } from './rules/stylistic-rules.js';
 import { globalIgnores } from './utils/global-ignores.js';
 import { importSortGroups } from './utils/import-sort-groups.js';
 
+const defaultIgnores = [
+  'dist',
+  'build',
+  'node_modules',
+  'eslint.config.js',
+  'vite.config.ts',
+  '*.min.js',
+  'coverage',
+  '.next',
+  '.nuxt',
+  '.output',
+  '.vercel',
+];
+
 export const createConfig = (options = {}) => {
   const {
     project = ['./tsconfig.json'],
@@ -28,14 +42,12 @@ export const createConfig = (options = {}) => {
     tsconfigRootDir = process.cwd(),
   } = options;
 
-  // Combine global ignores with additional ones
-  const allIgnores = [...globalIgnores, ...additionalIgnores];
-
-  return tseslint.config([
-    // Global ignores should be in a separate config object
+  return [
+    // Global ignores
     {
-      ignores: allIgnores,
+      ignores: [...defaultIgnores, ...additionalIgnores],
     },
+    // Main configuration
     {
       files: ['**/*.{js,jsx,ts,tsx}'],
 
@@ -47,41 +59,22 @@ export const createConfig = (options = {}) => {
         },
       },
 
+      // Plugins must be objects in flat config
       plugins: {
+        '@typescript-eslint': tseslint.plugin,
+        'react': react,
+        'react-hooks': reactHooks,
+        'react-refresh': reactRefresh,
+        'jsx-a11y': jsxA11y,
+        'import': importPlugin,
+        '@stylistic': stylistic,
         'simple-import-sort': simpleImportSort,
         'no-relative-import-paths': noRelativeImportPaths,
-        react,
       },
 
       linterOptions: {
         reportUnusedDisableDirectives: 'warn',
       },
-
-      extends: [
-        // general
-        js.configs.recommended,
-        ...tseslint.configs.recommended,
-        // imports
-        importPlugin.flatConfigs.recommended,
-        importPlugin.flatConfigs.typescript,
-        // react
-        react.configs.flat.recommended,
-        react.configs.flat['jsx-runtime'],
-        reactHooks.configs.recommended,
-        // a11y
-        jsxA11y.flatConfigs.recommended,
-        // vite
-        reactRefresh.configs.vite,
-        // code style
-        stylistic.configs['disable-legacy'],
-        stylistic.configs.customize({
-          indent: 2,
-          quotes: 'single',
-          semi: true,
-          jsx: true,
-          commaDangle: 'always-multiline',
-        }),
-      ],
 
       settings: {
         'import/resolver': {
@@ -98,21 +91,53 @@ export const createConfig = (options = {}) => {
       },
 
       rules: {
+        // Base JavaScript rules
+        ...js.configs.recommended.rules,
+
+        // TypeScript rules
+        ...tseslint.configs.recommended[0].rules,
+        ...tseslint.configs.recommended[1].rules,
+
+        // Import plugin rules
+        ...importPlugin.flatConfigs.recommended.rules,
+        ...importPlugin.flatConfigs.typescript.rules,
+
+        // React rules
+        ...react.configs.flat.recommended.rules,
+        ...react.configs.flat['jsx-runtime'].rules,
+        ...reactHooks.configs.recommended.rules,
+
+        // A11y rules
+        ...jsxA11y.flatConfigs.recommended.rules,
+
+        // React Refresh rules
+        ...reactRefresh.configs.vite.rules,
+
+        // Stylistic rules
+        ...stylistic.configs.customize({
+          indent: 2,
+          quotes: 'single',
+          semi: true,
+          jsx: true,
+          commaDangle: 'always-multiline',
+        }).rules,
+
+        // Custom rule sets
         ...baseRules,
         ...typescriptRules,
         ...reactRules,
         ...importRules(rootDir),
         ...stylisticRules,
+
+        // Import sorting
         'simple-import-sort/imports': ['warn', { groups: importSortGroups }],
+        'simple-import-sort/exports': 'warn',
+
+        // Custom overrides
         ...customRules,
       },
     },
-  ]);
+  ];
 };
 
 export default createConfig();
-
-// Export TSConfig utilities
-export const getTSConfigPath = (configType = 'react') => {
-  return `eslint-config/tsconfig/${configType}.json`;
-};
